@@ -27,8 +27,11 @@ const app = Vue.createApp({
       const attackedValue = getRandomValue(8, 15);
       this.playerHealth -= attackedValue;
     },
-    specialAttack() {
-
+    specialAttackMonster() {
+      // should only fire on every 3 rounds
+      const attackedValue = getRandomValue(10, 25);
+      this.monsterHealth -= attackedValue;
+      this.attackPlayer();
     },
     heal() {
 
