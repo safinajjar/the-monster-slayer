@@ -12,11 +12,13 @@ const app = Vue.createApp({
     }
   },
   computed: {
+    // reset value to 0 if health < 0
     monsterBarWidth() {
-      return { width: this.monsterHealth + '%' }
+      return { width: this.monsterHealth < 0 ? 0 : this.monsterHealth + '%' }
     },
+    // reset value to 0 if health < 0
     playerBarWidth() {
-      return { width: this.playerHealth + '%' }
+      return { width: this.playerHealth < 0 ? 0 : this.playerHealth + '%' }
     },
     mayUseSpecialAttack() {
       // should only fire on every 3 rounds
@@ -40,6 +42,12 @@ const app = Vue.createApp({
     }
   },
   methods: {
+    newGame() {
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.currentRound = 0;
+      this.winner = null;
+    },
     attackMonster() {
       this.currentRound++;
       const attackedValue = getRandomValue(5, 12);
@@ -67,7 +75,7 @@ const app = Vue.createApp({
       this.attackPlayer();
     },
     surrender() {
-
+      this.winner = 'monster';
     }
   }
 });
